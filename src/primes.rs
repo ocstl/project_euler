@@ -1,5 +1,6 @@
 extern crate num;
 
+#[derive(Default)]
 pub struct Primes<T>
 where
     T: Copy + From<u8> + PartialOrd + num::Unsigned + num::CheckedAdd

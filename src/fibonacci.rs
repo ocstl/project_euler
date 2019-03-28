@@ -2,6 +2,7 @@ extern crate num;
 
 use num::{Unsigned, Zero, One};
 
+#[derive(Default)]
 pub struct Fibonacci<T: Copy + Unsigned + Zero + One> {
     current: T,
     next: T,
