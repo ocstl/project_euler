@@ -51,25 +51,25 @@ impl<T: Clone + Debug> Matrix<T> {
 
     pub fn row_iterator(&self, row: usize) -> MatrixIterator<T> {
         MatrixIterator::new(
-            MatrixIteratorType::RowIterator, &self, (row, 0)
+            MatrixIteratorType::Row, &self, (row, 0)
         )
     }
 
     pub fn column_iterator(&self, column: usize) -> MatrixIterator<T> {
         MatrixIterator::new(
-            MatrixIteratorType::ColumnIterator, &self, (0, column)
+            MatrixIteratorType::Column, &self, (0, column)
         )
     }
 
     pub fn diagonal_iterator(&self, row: usize, column: usize) -> MatrixIterator<T> {
         MatrixIterator::new(
-            MatrixIteratorType::DiagonalIterator, &self, (row, column)
+            MatrixIteratorType::Diagonal, &self, (row, column)
         )
     }
 
     pub fn inverse_diagonal_iterator(&self, row: usize, column: usize) -> MatrixIterator<T> {
         MatrixIterator::new(
-            MatrixIteratorType::InverseDiagonalIterator, &self, (row, column)
+            MatrixIteratorType::InverseDiagonal, &self, (row, column)
         )
     }
 
@@ -131,10 +131,10 @@ impl<T: Clone + Debug> FromIterator<T> for Matrix<T> {
 }
 
 enum MatrixIteratorType {
-    RowIterator,
-    ColumnIterator,
-    DiagonalIterator,
-    InverseDiagonalIterator,
+    Row,
+    Column,
+    Diagonal,
+    InverseDiagonal,
 }
 
 pub struct MatrixIterator<'a, T: Clone> {
@@ -157,10 +157,10 @@ impl<'a, T: Clone + Debug> Iterator for MatrixIterator<'a, T> {
         if let Some(i) = self.idx {
             let result = self.matrix.get(i);
             self.idx = match self.t {
-                MatrixIteratorType::RowIterator => Some((i.0, i.1 + 1)),
-                MatrixIteratorType::ColumnIterator => Some((i.0 + 1, i.1)),
-                MatrixIteratorType::DiagonalIterator => Some((i.0 + 1, i.1 + 1)),
-                MatrixIteratorType::InverseDiagonalIterator => {
+                MatrixIteratorType::Row => Some((i.0, i.1 + 1)),
+                MatrixIteratorType::Column => Some((i.0 + 1, i.1)),
+                MatrixIteratorType::Diagonal => Some((i.0 + 1, i.1 + 1)),
+                MatrixIteratorType::InverseDiagonal => {
                     if i.0 == 0 {
                         None
                     } else {
@@ -182,7 +182,7 @@ mod tests {
 
     macro_rules! sample_matrix {
         ($x:ident) => {
-            let mut $x = Matrix { rows: 2, columns: 2, data: vec![1, 2, 3, 4] };
+            let $x = Matrix { rows: 2, columns: 2, data: vec![1, 2, 3, 4] };
         }
     }
 
