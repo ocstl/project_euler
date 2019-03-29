@@ -12,7 +12,7 @@ fn main() {
         let length = CollatzSequence::new(x).enumerate()
             .find_map(|(count, current)| {
                 if let Some(i) = cache.get(current) {
-                    Some(1 + i + count)
+                    Some(i + count)
                 } else {
                     None
                 }
