@@ -1,5 +1,8 @@
+extern crate counter;
+extern crate chrono;
+extern crate num;
+
 pub mod collatz;
-pub mod counter;
 pub mod factors;
 pub mod fibonacci;
 pub mod matrix;
