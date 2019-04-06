@@ -20,7 +20,7 @@ fn main() {
                 .zip(line.iter())
                 .map(|pair| pair.0 + pair.1)
                 .collect())
-        .get(0).unwrap().clone();
+        [0];
 
     println!("Answer: {}", answer);
 }

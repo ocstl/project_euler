@@ -1,5 +1,3 @@
-extern crate num;
-
 use num::{Unsigned, Bounded, CheckedAdd, Zero, One};
 use crate::primes::Primes;
 
