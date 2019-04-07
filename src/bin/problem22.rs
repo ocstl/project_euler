@@ -5,7 +5,7 @@ const INPUT: &str = "inputs/p022_names.txt";
 fn alphabetical_value(s: &str) -> u64 {
     s.as_bytes()
         .iter()
-        .map(|c| (c + 1 - b'A') as u64)
+        .map(|c| u64::from(c + 1 - b'A'))
         .sum()
 }
 
