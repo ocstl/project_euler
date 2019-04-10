@@ -1,21 +1,33 @@
 extern crate num;
 
-#[derive(Default)]
+use num::{Integer, CheckedAdd, Bounded};
+
+#[derive(Clone, Default)]
 pub struct Primes<T>
 where
-    T: Copy + From<u8> + PartialOrd + num::Unsigned + num::CheckedAdd
-        + num::Bounded,
+    T: Copy + From<u8> + PartialOrd + Integer + CheckedAdd + Bounded,
 {
     primes: Vec<T>,
 }
 
 impl<T> Primes<T>
 where
-    T: Copy + From<u8> + PartialOrd + num::Unsigned + num::CheckedAdd
-        + num::Bounded,
+    T: Copy + From<u8> + PartialOrd + Integer + CheckedAdd + Bounded,
 {
     pub fn new() -> Primes<T> {
         Primes { primes: Vec::new() }
+    }
+
+    pub fn check_primeness(&mut self, x: T) -> bool {
+        if self.primes.is_empty() {
+            self.next();
+        }
+
+        while x > *self.primes.last().unwrap() {
+            self.next();
+        }
+
+        self.primes.contains(&x)
     }
 
     #[inline]
@@ -27,8 +39,7 @@ where
 
 impl<T> Iterator for Primes<T>
 where
-    T: Copy + From<u8> + PartialOrd + num::Unsigned + num::CheckedAdd
-        + num::Bounded,
+    T: Copy + From<u8> + PartialOrd + Integer + CheckedAdd + Bounded,
 {
     type Item = T;
 
