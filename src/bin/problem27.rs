@@ -15,7 +15,7 @@ fn main() {
             .map(|a| {
                 let quadratic_formula = |x: isize| -> isize { x.pow(2) + a * x + b };
                 let length = (0..)
-                    .take_while(|&x| *&mut primes.check_primeness(quadratic_formula(x)))
+                    .take_while(|&x| primes.check_primeness(quadratic_formula(x)))
                     .count();
                 (length, a * b)
                 })
