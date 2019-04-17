@@ -8,20 +8,15 @@ fn main() {
         /* Eliminate trivial fractions. */
         if numerator % 10 == 0 && denominator % 10 == 0 {
             false
-        } else if (numerator / 10) == (denominator / 10) && denominator % 10 != 0 &&
-                Rational::new(numerator % 10, denominator % 10) == ratio {
-            true
-        } else if (numerator / 10) == (denominator % 10) &&
-                Rational::new(numerator % 10, denominator / 10) == ratio {
-            true
-        } else if (numerator % 10) == (denominator / 10) && denominator % 10 != 0 &&
-                Rational::new(numerator / 10, denominator % 10) == ratio {
-            true
-        } else if (numerator % 10) == (denominator % 10) &&
-                Rational::new(numerator / 10, denominator / 10) == ratio {
-            true
         } else {
-            false
+            ((numerator / 10) == (denominator / 10) && denominator % 10 != 0 &&
+                    Rational::new(numerator % 10, denominator % 10) == ratio)
+                || ((numerator / 10) == (denominator % 10) &&
+                    Rational::new(numerator % 10, denominator / 10) == ratio)
+                || ((numerator % 10) == (denominator / 10) && denominator % 10 != 0 &&
+                    Rational::new(numerator / 10, denominator % 10) == ratio)
+                || ((numerator % 10) == (denominator % 10) &&
+                    Rational::new(numerator / 10, denominator / 10) == ratio)
         }
     };
 
@@ -30,7 +25,7 @@ fn main() {
         .map(move |numerator| Rational::new(numerator, denominator)))
         .collect();
 
-    let answer = fractions.iter().product::<Rational>().denom().clone();
+    let answer = *fractions.iter().product::<Rational>().denom();
 
     println!("Answer: {}", answer);
 }
