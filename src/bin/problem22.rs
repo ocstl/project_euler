@@ -3,13 +3,10 @@ use std::fs;
 const INPUT: &str = "inputs/p022_names.txt";
 
 fn alphabetical_value(s: &str) -> u64 {
-    s.as_bytes()
-        .iter()
-        .map(|c| u64::from(c + 1 - b'A'))
-        .sum()
+    s.as_bytes().iter().map(|c| u64::from(c + 1 - b'A')).sum()
 }
 
-fn main () {
+fn main() {
     let mut names: Vec<String> = fs::read_to_string(INPUT)
         .expect("Missing file.")
         .split(',')
@@ -18,7 +15,8 @@ fn main () {
 
     names.sort();
 
-    let answer: u64 = names.iter()
+    let answer: u64 = names
+        .iter()
         .enumerate()
         .map(|(idx, name)| (idx as u64 + 1) * alphabetical_value(name))
         .sum();

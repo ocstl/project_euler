@@ -1,6 +1,6 @@
 extern crate num;
 
-use num::{Integer, CheckedAdd, Bounded};
+use num::{Bounded, CheckedAdd, Integer};
 
 #[derive(Clone, Default)]
 pub struct Primes<T>
@@ -31,10 +31,14 @@ where
     }
 
     #[inline]
-    fn two() -> T { T::from(2) }
+    fn two() -> T {
+        T::from(2)
+    }
 
     #[inline]
-    fn three() -> T { T::from(3) }
+    fn three() -> T {
+        T::from(3)
+    }
 }
 
 impl<T> Iterator for Primes<T>
@@ -48,10 +52,11 @@ where
             0 => Some(Primes::two()),
             1 => Some(Primes::three()),
             _ => num::range_step(
-                    *self.primes.last().unwrap() + Self::two(),
-                        T::max_value(),
-                        Self::two())
-                    .find(|&x| !self.primes.iter().any(|&y| (x % y).is_zero())),
+                *self.primes.last().unwrap() + Self::two(),
+                T::max_value(),
+                Self::two(),
+            )
+            .find(|&x| !self.primes.iter().any(|&y| (x % y).is_zero())),
         };
 
         if let Some(x) = new_prime {
@@ -65,7 +70,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn first_prime_u8() {
         let actual: Option<u8> = Primes::new().next();

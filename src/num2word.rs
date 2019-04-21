@@ -3,8 +3,16 @@ const ONES: [&str; 10] = [
 ];
 
 const TEENS: [&str; 10] = [
-    "ten", "eleven", "twelve", "thirteen", "fourteen",
-    "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
 ];
 
 const TENS: [&str; 10] = [
@@ -27,18 +35,25 @@ pub fn num2word(number: usize) -> String {
         "zero".to_string()
     } else {
         match number {
-            0 ... 9 => ONES[number].to_string(),
-            10 ... 19 => TEENS[number - 10].to_string(),
-            20 ... 99 => format!("{}-{}", TENS[number / 10], ONES[number % 10]),
-            100 ... 999 =>
-                format!("{} hundred and {}", ONES[number / 100], num2word(number % 100)),
-            1000 ... 999_999 =>
-                format!("{} thousand {}", num2word(number / 1000), num2word(number % 1000)),
+            0...9 => ONES[number].to_string(),
+            10...19 => TEENS[number - 10].to_string(),
+            20...99 => format!("{}-{}", TENS[number / 10], ONES[number % 10]),
+            100...999 => format!(
+                "{} hundred and {}",
+                ONES[number / 100],
+                num2word(number % 100)
+            ),
+            1000...999_999 => format!(
+                "{} thousand {}",
+                num2word(number / 1000),
+                num2word(number % 1000)
+            ),
             _ => panic!(),
-        }.trim_end_matches(" zero")
-            .trim_end_matches(" and")
-            .trim_end_matches("-zero")
-            .to_string()
+        }
+        .trim_end_matches(" zero")
+        .trim_end_matches(" and")
+        .trim_end_matches("-zero")
+        .to_string()
     }
 }
 
@@ -49,7 +64,7 @@ mod tests {
     macro_rules! test {
         ($x:expr, $y:expr) => {
             assert_eq!(&num2word($x), $y);
-        }
+        };
     }
 
     #[test]

@@ -1,6 +1,6 @@
 extern crate num;
 
-use num::{Unsigned, Zero, One};
+use num::{One, Unsigned, Zero};
 
 #[derive(Default)]
 pub struct Fibonacci<T: Clone + Unsigned + Zero + One> {

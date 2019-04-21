@@ -1,5 +1,5 @@
-extern crate counter;
 extern crate chrono;
+extern crate counter;
 extern crate num;
 
 pub mod collatz;

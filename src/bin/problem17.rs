@@ -4,8 +4,12 @@ const INPUT: usize = 1000;
 
 fn main() {
     let answer: usize = (1..=INPUT)
-        .map(|x|
-            num2word(x).chars().filter(char::is_ascii_alphabetic).count())
+        .map(|x| {
+            num2word(x)
+                .chars()
+                .filter(char::is_ascii_alphabetic)
+                .count()
+        })
         .sum();
 
     println!("Answer: {}", answer);

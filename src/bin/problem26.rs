@@ -31,7 +31,7 @@ fn period_length(x: usize) -> usize {
 }
 
 fn main() {
-    let longest_cycle = (2..1000).max_by_key(|&x|period_length(x)).unwrap();
+    let longest_cycle = (2..1000).max_by_key(|&x| period_length(x)).unwrap();
 
     println!("Answer: {}", longest_cycle);
 }

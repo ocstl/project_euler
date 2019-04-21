@@ -21,9 +21,9 @@ fn main() {
 
     /* Find the sum of numbers that are equal to the sum of the factorial of their digits, except
      * 1 and 2. */
-    let answer: usize =
-        (3..upper_limit).filter(|&x| x == sum_factorial_digits(x))
-            .sum();
+    let answer: usize = (3..upper_limit)
+        .filter(|&x| x == sum_factorial_digits(x))
+        .sum();
 
     println!("Answer: {}", answer);
 }

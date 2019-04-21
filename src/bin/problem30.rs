@@ -17,9 +17,7 @@ fn main() {
         upper_bound += 9;
     }
 
-    let answer: usize = (2..upper_bound)
-        .filter(|&x| x == sum_powers(x))
-        .sum();
+    let answer: usize = (2..upper_bound).filter(|&x| x == sum_powers(x)).sum();
 
     println!("Answer: {}", answer);
 }

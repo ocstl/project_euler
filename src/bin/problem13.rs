@@ -104,11 +104,11 @@ const INPUT: [&str; 100] = [
 ];
 
 fn main() {
-    let answer: String =
-        INPUT.iter()
-            .map(|line| BigUint::parse_bytes(line.as_bytes(), 10).unwrap())
-            .sum::<BigUint>()
-            .to_str_radix(10);
+    let answer: String = INPUT
+        .iter()
+        .map(|line| BigUint::parse_bytes(line.as_bytes(), 10).unwrap())
+        .sum::<BigUint>()
+        .to_str_radix(10);
 
     println!("Answer: {}", &answer[..10]);
 }

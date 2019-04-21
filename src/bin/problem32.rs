@@ -13,11 +13,11 @@ fn main() {
     let mut solutions = HashSet::new();
 
     /* Brute force approach. We need to use a HashSet to filter the results, as permutations yield
-       pairs. */
+    pairs. */
     loop {
         for idx in 1..length {
             let a = slice_to_nbr(&data[..idx]);
-            for idy in idx+1..length {
+            for idy in idx + 1..length {
                 let b = slice_to_nbr(&data[idx..idy]);
                 let c = slice_to_nbr(&data[idy..]);
                 if a * b == c {
@@ -26,7 +26,7 @@ fn main() {
             }
         }
         if !data.next_permutation() {
-            break
+            break;
         }
     }
 

@@ -9,7 +9,8 @@ fn main() {
     cache.push(1);
 
     for x in 2..INPUT {
-        let length = CollatzSequence::new(x).enumerate()
+        let length = CollatzSequence::new(x)
+            .enumerate()
             .find_map(|(count, current)| {
                 if let Some(i) = cache.get(current) {
                     Some(i + count)
@@ -20,10 +21,7 @@ fn main() {
         cache.push(length.unwrap());
     }
 
-    let answer = cache.iter()
-        .enumerate()
-        .max_by_key(|(_idx, &v)| v)
-        .unwrap();
+    let answer = cache.iter().enumerate().max_by_key(|(_idx, &v)| v).unwrap();
 
     println!("Answer: {}", answer.0);
 }

@@ -12,22 +12,15 @@ fn is_palindrome(x: u32, base: Base) -> bool {
     };
 
     /* Faster than collecting into a String. */
-    s.chars()
-        .zip(s.chars().rev())
-        .all(|(a, b)| a == b)
+    s.chars().zip(s.chars().rev()).all(|(a, b)| a == b)
 }
 
-fn main () {
-    let palindrome =
-        |x: &u32| is_palindrome(*x, Base::Binary) && is_palindrome(*x, Base::Decimal);
+fn main() {
+    let palindrome = |x: &u32| is_palindrome(*x, Base::Binary) && is_palindrome(*x, Base::Decimal);
 
     /* Since we don't tolerate leading zeroes in the binary format, we can eliminate skip even
      * numbers. */
-    let answer: u32 =
-        (1..INPUT)
-            .step_by(2)
-            .filter(palindrome)
-            .sum();
+    let answer: u32 = (1..INPUT).step_by(2).filter(palindrome).sum();
 
     println!("Answer: {}", answer);
 }

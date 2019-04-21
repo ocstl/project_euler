@@ -15,11 +15,18 @@ pub struct Matrix<T: Clone> {
 
 impl<T: Clone + Debug> Matrix<T> {
     pub fn new() -> Matrix<T> {
-        Matrix { rows: 0, columns: 0, data: Vec::new() }
+        Matrix {
+            rows: 0,
+            columns: 0,
+            data: Vec::new(),
+        }
     }
 
-    pub fn from_iterator(rows: usize, cols: usize, input: impl IntoIterator<Item = T>)
-            -> Result<Matrix<T>, MatrixError> {
+    pub fn from_iterator(
+        rows: usize,
+        cols: usize,
+        input: impl IntoIterator<Item = T>,
+    ) -> Result<Matrix<T>, MatrixError> {
         Matrix::from_iter(input).reshape(rows, cols)
     }
 
@@ -50,47 +57,35 @@ impl<T: Clone + Debug> Matrix<T> {
     }
 
     pub fn row_iterator(&self, row: usize) -> MatrixIterator<T> {
-        MatrixIterator::new(
-            MatrixIteratorType::Row, &self, (row, 0)
-        )
+        MatrixIterator::new(MatrixIteratorType::Row, &self, (row, 0))
     }
 
     pub fn column_iterator(&self, column: usize) -> MatrixIterator<T> {
-        MatrixIterator::new(
-            MatrixIteratorType::Column, &self, (0, column)
-        )
+        MatrixIterator::new(MatrixIteratorType::Column, &self, (0, column))
     }
 
     pub fn diagonal_iterator(&self, row: usize, column: usize) -> MatrixIterator<T> {
-        MatrixIterator::new(
-            MatrixIteratorType::Diagonal, &self, (row, column)
-        )
+        MatrixIterator::new(MatrixIteratorType::Diagonal, &self, (row, column))
     }
 
     pub fn inverse_diagonal_iterator(&self, row: usize, column: usize) -> MatrixIterator<T> {
-        MatrixIterator::new(
-            MatrixIteratorType::InverseDiagonal, &self, (row, column)
-        )
+        MatrixIterator::new(MatrixIteratorType::InverseDiagonal, &self, (row, column))
     }
 
     pub fn iterator_over_rows(&self) -> impl Iterator<Item = MatrixIterator<T>> {
-        (0..self.rows)
-            .map(move|row| self.row_iterator(row))
+        (0..self.rows).map(move |row| self.row_iterator(row))
     }
 
     pub fn iterator_over_columns(&self) -> impl Iterator<Item = MatrixIterator<T>> {
-        (0..self.columns)
-            .map(move |column| self.column_iterator(column))
+        (0..self.columns).map(move |column| self.column_iterator(column))
     }
 
     pub fn iterator_over_upper_diagonals(&self) -> impl Iterator<Item = MatrixIterator<T>> {
-        (0..self.columns)
-            .map(move |column| self.diagonal_iterator(0, column))
+        (0..self.columns).map(move |column| self.diagonal_iterator(0, column))
     }
 
     pub fn iterator_over_lower_diagonals(&self) -> impl Iterator<Item = MatrixIterator<T>> {
-        (0..self.rows)
-            .map(move |row| self.diagonal_iterator(row, 0))
+        (0..self.rows).map(move |row| self.diagonal_iterator(row, 0))
     }
 
     /* Iterate over the upper right diagonals, then the lower left. */
@@ -100,13 +95,13 @@ impl<T: Clone + Debug> Matrix<T> {
     }
 
     pub fn iterator_over_upper_left_diagonals(&self) -> impl Iterator<Item = MatrixIterator<T>> {
-        (0..self.rows).rev()
+        (0..self.rows)
+            .rev()
             .map(move |row| self.inverse_diagonal_iterator(row, 0))
     }
 
     pub fn iterator_over_lower_right_diagonals(&self) -> impl Iterator<Item = MatrixIterator<T>> {
-        (0..self.columns)
-            .map(move |column| self.inverse_diagonal_iterator(self.rows - 1, column))
+        (0..self.columns).map(move |column| self.inverse_diagonal_iterator(self.rows - 1, column))
     }
 
     /* Iterate over the upper left diagonals, then the lower right. */
@@ -144,9 +139,16 @@ pub struct MatrixIterator<'a, T: Clone> {
 }
 
 impl<'a, T: Clone + Debug> MatrixIterator<'a, T> {
-    fn new(t: MatrixIteratorType, matrix: &'a Matrix<T>, idx: (usize, usize))
-           -> MatrixIterator<'a, T> {
-        MatrixIterator { t, matrix, idx: Some(idx) }
+    fn new(
+        t: MatrixIteratorType,
+        matrix: &'a Matrix<T>,
+        idx: (usize, usize),
+    ) -> MatrixIterator<'a, T> {
+        MatrixIterator {
+            t,
+            matrix,
+            idx: Some(idx),
+        }
     }
 }
 
@@ -166,7 +168,7 @@ impl<'a, T: Clone + Debug> Iterator for MatrixIterator<'a, T> {
                     } else {
                         Some((i.0 - 1, i.1 + 1))
                     }
-                },
+                }
             };
 
             result
@@ -182,8 +184,12 @@ mod tests {
 
     macro_rules! sample_matrix {
         ($x:ident) => {
-            let $x = Matrix { rows: 2, columns: 2, data: vec![1, 2, 3, 4] };
-        }
+            let $x = Matrix {
+                rows: 2,
+                columns: 2,
+                data: vec![1, 2, 3, 4],
+            };
+        };
     }
 
     #[test]

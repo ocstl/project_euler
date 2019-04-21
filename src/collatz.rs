@@ -1,4 +1,4 @@
-use num::{Integer, Unsigned, Zero, One};
+use num::{Integer, One, Unsigned, Zero};
 
 pub struct CollatzSequence<T>
 where

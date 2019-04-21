@@ -8,13 +8,14 @@ const INPUT: usize = 500;
 
 fn main() {
     let nbr_factors = |n: usize| -> usize {
-        factors::factorize(n).iter()
+        factors::factorize(n)
+            .iter()
             .collect::<Counter<_>>()
             .into_map()
             .values()
             .map(|v| v + 1)
             .product()
-        };
+    };
 
     /* We can use the product theorem to count the number of combinations of prime factors. */
     let answer: usize = TriangleNumbers::new()

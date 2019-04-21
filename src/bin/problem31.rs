@@ -14,13 +14,15 @@ fn change(amount: usize, coins: &[usize]) -> usize {
         let coin = coins[0];
         let max_nbr = amount / coin;
 
-        (0..=max_nbr).map(|x| {
-            let new_amount = amount - x * coin;
-            if new_amount == 0 {
-                1
-            } else {
-                change(new_amount, &coins[1..])
-            }
-        }).sum()
+        (0..=max_nbr)
+            .map(|x| {
+                let new_amount = amount - x * coin;
+                if new_amount == 0 {
+                    1
+                } else {
+                    change(new_amount, &coins[1..])
+                }
+            })
+            .sum()
     }
 }
