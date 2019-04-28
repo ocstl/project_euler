@@ -1,7 +1,7 @@
 fn is_pentagonal(p_n: u32) -> bool {
-    /* Quadratic formula. The result should be an integer. */
+    // Quadratic formula. The result should be an integer.
     let n = (1.0 + (1.0 + 24.0 * f64::from(p_n)).sqrt()) / 6.0;
-    (n - n.trunc()).abs() <  10.0 * core::f64::EPSILON
+    (n - n.trunc()).abs() < 10.0 * core::f64::EPSILON
 }
 
 fn to_pentagonal(n: u32) -> u32 {
