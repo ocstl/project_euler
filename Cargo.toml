@@ -5,7 +5,8 @@ authors = ["Olivier Chassé St-Laurent <oliviercsl@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-num = "0.2"
 counter = "0.4"
 chrono = "0.4"
+itertools = "0.8"
+num = "0.2"
 permutohedron = "0.2"
