@@ -4,10 +4,7 @@ const INPUT: usize = 1_000_000;
 
 fn main() {
     let mut primes = Primes::<usize>::new();
-    let vec_primes: Vec<usize> = primes
-        .clone()
-        .take_while(|&prime| prime < INPUT)
-        .collect();
+    let vec_primes: Vec<usize> = primes.clone().take_while(|&prime| prime < INPUT).collect();
 
     // Iterate over sequences lengths (windows).
     let answer: usize = (1..=vec_primes.len())
