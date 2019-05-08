@@ -2,6 +2,7 @@ extern crate chrono;
 extern crate counter;
 extern crate num;
 
+pub mod cards;
 pub mod collatz;
 pub mod factors;
 pub mod fibonacci;
