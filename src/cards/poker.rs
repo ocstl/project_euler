@@ -1,4 +1,4 @@
-use super::cards::{Card, Value};
+use super::playing_cards::{Card, Value};
 
 type FiveCards = [Card; 5];
 
