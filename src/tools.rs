@@ -41,3 +41,36 @@ mod tests {
         assert_eq!(actual, expected);
     }
 }
+
+pub trait ReverseInteger: PartialEq + Eq + Sized {
+    fn reverse_base10(&self) -> Self;
+
+    fn is_palindrome_base10(&self) -> bool {
+        self.reverse_base10() == *self
+    }
+}
+
+macro_rules! impl_reverse {
+    ($t:ty) => {
+        impl ReverseInteger for $t {
+            fn reverse_base10(&self) -> $t {
+                let mut n = *self;
+                let mut result = 0;
+
+                while n > 0 {
+                    result = result * 10 + (n % 10);
+                    n /= 10;
+                }
+
+                result
+            }
+        }
+    };
+
+    ($t:ty, $($ts:ty),+) => {
+        impl_reverse! { $t }
+        impl_reverse! { $($ts),+ }
+    };
+}
+
+impl_reverse!(u8, u16, u32, u64, u128, usize);
