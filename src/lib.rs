@@ -1,9 +1,11 @@
 extern crate chrono;
 extern crate counter;
+extern crate itertools;
 extern crate num;
 extern crate primal;
 
 pub mod cards;
+pub mod ciphers;
 pub mod collatz;
 pub mod factors;
 pub mod fibonacci;
