@@ -1,20 +1,18 @@
-use project_euler::primes::Primes;
+extern crate primal;
 
-const INPUT: u64 = 600_851_475_143;
+/// What is the largest prime factor of the number 600851475143 ?
+const INPUT: usize = 600_851_475_143;
 
 fn main() {
-    let mut primes = Primes::new();
-    let mut number = INPUT;
-    let mut current;
-    let mut answer = 0;
+    let mut iter = primal::Primes::all();
 
-    while number > 1 {
-        current = primes.next().unwrap();
-        while number % current == 0 {
-            number /= current;
-            answer = current;
+    let mut n = INPUT;
+    let mut answer = 0;
+    while n > 1 {
+        answer = iter.next().unwrap();
+        while n % answer == 0 {
+            n /= answer;
         }
     }
-
     println!("Answer: {}", answer);
 }
