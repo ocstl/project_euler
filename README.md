@@ -1,2 +1,2 @@
-# project_euler
-Project Euler
+# Project Euler
+Project Euler code
