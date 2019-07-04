@@ -1,2 +1,4 @@
 # Project Euler
-Project Euler code
+Project Euler solutions in Rust.
+
+Used as a way to further my understanding of Rust.
