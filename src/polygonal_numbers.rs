@@ -1,20 +1,61 @@
-pub struct PolygonalNumberIterator {
-    side: u32,
-    current: u32,
+use core::ops::{AddAssign, Div, Sub};
+use num::{One, Zero};
+
+pub trait Two {
+    fn two() -> Self;
 }
 
-impl PolygonalNumberIterator {
-    pub fn new(side: u32) -> Self {
-        PolygonalNumberIterator { side, current: 0 }
+macro_rules! two_impl {
+    ($t:ty, $v:expr) => {
+        impl Two for $t {
+            #[inline]
+            fn two() -> $t {
+                $v
+            }
+        }
+    };
+}
+
+two_impl!(u8, 2);
+two_impl!(u16, 2);
+two_impl!(u32, 2);
+two_impl!(u64, 2);
+two_impl!(u128, 2);
+two_impl!(usize, 2);
+
+#[derive(Clone, Copy)]
+pub struct PolygonalNumberIterator<T>
+where
+    T: Zero + One + Two + Copy + AddAssign + Div<Output = T> + Sub<Output = T>,
+{
+    sides: T,
+    current: T,
+}
+
+impl<T> PolygonalNumberIterator<T>
+where
+    T: Zero + One + Two + Copy + AddAssign + Div<Output = T> + Sub<Output = T>,
+{
+    pub fn new(sides: T) -> Self {
+        PolygonalNumberIterator {
+            sides,
+            current: T::zero(),
+        }
     }
 }
 
-impl Iterator for PolygonalNumberIterator {
-    type Item = u32;
+impl<T> Iterator for PolygonalNumberIterator<T>
+where
+    T: Zero + One + Two + Copy + AddAssign + Div<Output = T> + Sub<Output = T>,
+{
+    type Item = T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.current += 1;
-        Some((self.side - 2) * self.current * (self.current - 1) / 2 + self.current)
+        self.current += T::one();
+        Some(
+            (self.sides - T::two()) * self.current * (self.current - T::one()) / T::two()
+                + self.current,
+        )
     }
 }
 

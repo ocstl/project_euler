@@ -14,5 +14,4 @@ pub mod num2word;
 pub mod polygonal_numbers;
 pub mod primes;
 pub mod tools;
-pub mod triangle_numbers;
 pub mod unsigned;
