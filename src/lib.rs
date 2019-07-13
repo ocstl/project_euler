@@ -7,7 +7,6 @@ extern crate primal;
 pub mod cards;
 pub mod ciphers;
 pub mod collatz;
-pub mod factors;
 pub mod fibonacci;
 pub mod matrix;
 pub mod num2word;

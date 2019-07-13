@@ -1,15 +1,17 @@
-use project_euler::factors::factorize;
+use primal::Sieve;
 
 const INPUT: usize = 4;
+const LARGEST_PRIME: usize = 10_000_000;
 
+/// Find the first four consecutive integers to have four distinct prime factors each. What is the
+/// first of these numbers?
 fn main() {
+    let sieve = Sieve::new(LARGEST_PRIME);
     let nbr_distinct_prime_factors = |n: usize| -> usize {
-        let mut prime_factors = factorize(n);
-        prime_factors.dedup();
-        prime_factors.len()
+        sieve.factor(n).unwrap().len()
     };
 
-    let mut current = 0;
+    let mut current = 2;
     let mut nbr_factors = Vec::with_capacity(INPUT);
 
     for _ in 0..INPUT {

@@ -1,18 +1,19 @@
 extern crate counter;
 
 use counter::Counter;
-use project_euler::factors;
+use primal::Sieve;
 
-const INPUT: u64 = 20;
+const INPUT: usize = 20;
 
 fn main() {
-    let factors = (2..INPUT).fold(Counter::new(), |acc: Counter<_>, x| {
-        acc | factors::factorize(x).into_iter().collect()
+    let sieve = Sieve::new(INPUT);
+    let factors = (2..INPUT).fold(Counter::new(), |acc: Counter<usize>, x| {
+        acc | sieve.factor(x).unwrap().into_iter().collect()
     });
 
     let answer: u64 = factors
         .iter()
-        .map(|(key, value)| key.pow(*value as u32))
+        .map(|(key, value)| (*key as u64).pow(*value as u32))
         .product();
 
     println!("Answer: {}", answer);

@@ -1,20 +1,25 @@
-use counter::Counter;
-use project_euler::factors::factorize;
+use primal::Sieve;
 use std::collections::HashSet;
 
-fn sum_proper_divisors(number: usize) -> usize {
-    let s = |(k, v): (&usize, &usize)| -> usize { (0..=*v as u32).map(|x| k.pow(x)).sum() };
+const LARGEST_SUM: usize = 28123;
 
-    let prime_factors: Counter<usize, usize> = Counter::init(factorize(number));
-
-    let sum_divisors: usize = prime_factors.iter().map(s).product();
-
-    sum_divisors - number
+fn sum_proper_divisors(prime_factors: &[(usize, usize)]) -> usize {
+    let s = |(k, v): &(usize, usize)| -> usize { (0..=*v as u32).map(|x| k.pow(x)).sum() };
+    prime_factors.iter().map(s).product()
 }
 
+/// Find the sum of all the positive integers which cannot be written as the sum of two abundant
+/// numbers.
 fn main() {
-    let abundant_numbers: Vec<usize> = (12..28123)
-        .filter(|&x| sum_proper_divisors(x) > x)
+    let sieve = Sieve::new(LARGEST_SUM);
+
+    let wrapper = |n: usize| -> usize {
+        let prime_factors = sieve.factor(n).unwrap();
+        sum_proper_divisors(&prime_factors) - n
+    };
+
+    let abundant_numbers: Vec<usize> = (12..LARGEST_SUM)
+        .filter(|&x| wrapper(x) > x)
         .collect();
 
     let sum_two_abundant_numbers: HashSet<usize> = abundant_numbers
@@ -22,7 +27,7 @@ fn main() {
         .flat_map(|x| abundant_numbers.iter().map(move |y| *x + y))
         .collect();
 
-    let answer: usize = (1..=28123)
+    let answer: usize = (1..=LARGEST_SUM)
         .collect::<HashSet<usize>>()
         .difference(&sum_two_abundant_numbers)
         .sum();
