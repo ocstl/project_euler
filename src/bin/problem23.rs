@@ -18,9 +18,7 @@ fn main() {
         sum_proper_divisors(&prime_factors) - n
     };
 
-    let abundant_numbers: Vec<usize> = (12..LARGEST_SUM)
-        .filter(|&x| wrapper(x) > x)
-        .collect();
+    let abundant_numbers: Vec<usize> = (12..LARGEST_SUM).filter(|&x| wrapper(x) > x).collect();
 
     let sum_two_abundant_numbers: HashSet<usize> = abundant_numbers
         .iter()

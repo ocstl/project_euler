@@ -7,9 +7,7 @@ const LARGEST_PRIME: usize = 10_000_000;
 /// first of these numbers?
 fn main() {
     let sieve = Sieve::new(LARGEST_PRIME);
-    let nbr_distinct_prime_factors = |n: usize| -> usize {
-        sieve.factor(n).unwrap().len()
-    };
+    let nbr_distinct_prime_factors = |n: usize| -> usize { sieve.factor(n).unwrap().len() };
 
     let mut current = 2;
     let mut nbr_factors = Vec::with_capacity(INPUT);
