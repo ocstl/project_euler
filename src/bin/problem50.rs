@@ -1,10 +1,11 @@
-use project_euler::primes::Primes;
+use primal::Sieve;
 
 const INPUT: usize = 1_000_000;
 
+/// Which prime, below one-million, can be written as the sum of the most consecutive primes?
 fn main() {
-    let mut primes = Primes::<usize>::new();
-    let vec_primes: Vec<usize> = primes.clone().take_while(|&prime| prime < INPUT).collect();
+    let sieve = Sieve::new(INPUT);
+    let vec_primes: Vec<usize> = sieve.primes_from(0).collect();
 
     // Iterate over sequences lengths (windows).
     let answer: usize = (1..=vec_primes.len())
@@ -14,7 +15,7 @@ fn main() {
                 .windows(n)
                 .map(|window| window.iter().sum())
                 .take_while(|&s| s < INPUT)
-                .filter(|&s| primes.check_primeness(s))
+                .filter(|&s| sieve.is_prime(s))
                 .max()
         })
         .next()

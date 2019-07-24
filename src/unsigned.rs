@@ -10,6 +10,12 @@ pub trait UnsignedInteger: Sized {
     fn nbr_digits(&self, base: Self) -> usize {
         self.to_radix_le(base).len()
     }
+
+    fn from_radix_be(v: impl Iterator<Item = Self>, base: Self) -> Self;
+
+    fn from_radix_le(v: impl DoubleEndedIterator<Item = Self>, base: Self) -> Self {
+        Self::from_radix_be(v.rev(), base)
+    }
 }
 
 macro_rules! impl_unsigned_integer {
@@ -25,6 +31,10 @@ macro_rules! impl_unsigned_integer {
                 }
 
                 v
+            }
+
+            fn from_radix_be(v: impl Iterator<Item = Self>, base: Self) -> Self {
+                v.fold(0, |acc, n| acc * base + n)
             }
         }
     };
