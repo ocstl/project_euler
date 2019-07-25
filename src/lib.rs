@@ -11,6 +11,4 @@ pub mod fibonacci;
 pub mod matrix;
 pub mod num2word;
 pub mod polygonal_numbers;
-pub mod primes;
-pub mod tools;
 pub mod unsigned;

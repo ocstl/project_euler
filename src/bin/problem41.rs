@@ -12,7 +12,8 @@ fn is_pandigital(n: usize) -> bool {
 }
 
 fn main() {
-    let answer = Sieve::new(INPUT).primes_from(0)
+    let answer = Sieve::new(INPUT)
+        .primes_from(0)
         .take_while(|&x| x <= INPUT)
         .filter(|&x| is_pandigital(x))
         .max()
