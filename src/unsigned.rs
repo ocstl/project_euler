@@ -16,7 +16,7 @@ pub trait UnsignedInteger: Clone + Copy + PartialEq + Eq + Sized {
         self.to_radix_le(base).len()
     }
 
-    fn from_radix_be<'a> (v: impl Iterator<Item = Self>, base: Self) -> Self;
+    fn from_radix_be(v: impl Iterator<Item = Self>, base: Self) -> Self;
 
     fn from_radix_le(v: impl DoubleEndedIterator<Item = Self>, base: Self) -> Self {
         Self::from_radix_be(v.rev(), base)

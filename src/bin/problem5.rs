@@ -1,10 +1,10 @@
-extern crate counter;
-
 use counter::Counter;
 use primal::Sieve;
 
 const INPUT: usize = 20;
 
+/// What is the smallest positive number that is evenly divisible by all of the numbers from 1 to
+/// 20?
 fn main() {
     let sieve = Sieve::new(INPUT);
     let factors = (2..INPUT).fold(Counter::new(), |acc: Counter<usize>, x| {
