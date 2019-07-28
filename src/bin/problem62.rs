@@ -28,8 +28,7 @@ fn main() {
             // Since we generated cubes in order, the first in the series is the smallest one.
             if c.len() == PERMUTATIONS {
                 Some(*c.first().unwrap())
-            }
-            else {
+            } else {
                 None
             }
         })
