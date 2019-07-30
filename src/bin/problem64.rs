@@ -57,7 +57,11 @@ impl SquareRootContinuedFraction {
         let a0 = triplet.a0;
         let period = triplet.collect();
 
-        SquareRootContinuedFraction { _number: number, _a0: a0, period }
+        SquareRootContinuedFraction {
+            _number: number,
+            _a0: a0,
+            period,
+        }
     }
 
     fn period_length(&self) -> usize {
