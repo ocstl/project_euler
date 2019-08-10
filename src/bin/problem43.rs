@@ -22,7 +22,7 @@ const PRIMES: [usize; 7] = [2, 3, 5, 7, 11, 13, 17];
 fn main() {
     let mut digits = INPUT;
     let heap = Heap::new(&mut digits);
-    let to_number = |x: &[usize]| usize::from_radix_be(x.into_iter().cloned(), BASE);
+    let to_number = |x: &[usize]| usize::from_radix_be(x.iter().cloned(), BASE);
 
     // Check divisibility over all 3-digit windows, starting at the second digit.
     let filter_fn = |d: &[usize]| -> bool {

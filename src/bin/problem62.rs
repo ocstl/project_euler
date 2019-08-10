@@ -22,7 +22,7 @@ fn main() {
         .map(|n: u64| n.pow(POWER))
         .find_map(|n| {
             let v = ordered_digits(n);
-            let c = counter.entry(v).or_insert(Vec::new());
+            let c = counter.entry(v).or_insert_with(|| Vec::new());
             c.push(n);
 
             // Since we generated cubes in order, the first in the series is the smallest one.
