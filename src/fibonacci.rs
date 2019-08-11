@@ -1,5 +1,3 @@
-extern crate num;
-
 use num::{One, Unsigned, Zero};
 
 #[derive(Default)]
