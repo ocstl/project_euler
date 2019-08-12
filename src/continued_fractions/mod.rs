@@ -2,6 +2,9 @@ pub mod square_root;
 
 use num::rational::Ratio;
 use num::Integer;
+use square_root::SquareRoot;
+use std::convert::From;
+use std::iter::{Chain, Cycle, Once};
 
 /// Continued fraction.
 ///
@@ -14,6 +17,16 @@ pub struct ContinuedFraction<T, U: Iterator<Item = T>> {
 impl<T: Clone + Integer, U: Iterator<Item = T>> ContinuedFraction<T, U> {
     pub fn new(sequence: U) -> Self {
         ContinuedFraction { sequence }
+    }
+}
+
+impl<T: Clone + Integer> From<SquareRoot<T>>
+    for ContinuedFraction<T, Chain<Once<T>, Cycle<std::vec::IntoIter<T>>>>
+{
+    fn from(square_root: SquareRoot<T>) -> Self {
+        ContinuedFraction {
+            sequence: square_root.into_iter(),
+        }
     }
 }
 
@@ -81,5 +94,15 @@ mod tests {
         assert_eq!(convergents.next().unwrap(), Ratio::new(19, 4));
         assert_eq!(convergents.next().unwrap(), Ratio::new(24, 5));
         assert_eq!(convergents.next().unwrap(), Ratio::new(211, 44));
+    }
+
+    #[test]
+    fn from_square_root_2() {
+        let s = SquareRoot::new(2_u32);
+        let mut convergents = ContinuedFraction::from(s).into_iter();
+
+        assert_eq!(convergents.next().unwrap(), Ratio::new(1, 1));
+        assert_eq!(convergents.next().unwrap(), Ratio::new(3, 2));
+        assert_eq!(convergents.next().unwrap(), Ratio::new(7, 5));
     }
 }

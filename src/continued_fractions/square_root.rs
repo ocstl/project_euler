@@ -1,27 +1,30 @@
 use num::integer::{Integer, Roots};
 use std::iter::{once, Chain, Cycle, Once};
+use std::ops::{Add, Mul};
 
 // See https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
-fn expand<T: Clone + Copy + Integer + Roots>(number: T) -> (T, Vec<T>) {
+fn expand<T: >(number: T) -> (T, Vec<T>)
+where T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>
+{
     let mut m = T::zero();
     let mut d = T::one();
     let mut a = number.sqrt();
 
-    let a0 = a;
-    let filter = a0 + a0;
+    let a0 = a.clone();
+    let filter = a0.clone() + a0.clone();
     let mut period = Vec::new();
 
     while a != filter {
-        m = d * a - m;
-        d = (number - m * m) / d;
+        m = a * d.clone() - m.clone();
+        d = (number.clone() - m.clone() * m.clone()) / d.clone();
 
         // In the case of perfect squares, d == 0, so we can return early.
         if d.is_zero() {
             break;
         }
 
-        a = (a0 + m) / d;
-        period.push(a)
+        a = (a0.clone() + m.clone()) / d.clone();
+        period.push(a.clone())
     }
 
     (a0, period)
@@ -34,7 +37,9 @@ pub struct SquareRoot<T> {
     period: Vec<T>,
 }
 
-impl<T: Clone + Copy + Integer + Roots> SquareRoot<T> {
+impl<T> SquareRoot<T>
+where T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>
+{
     pub fn new(number: T) -> Self {
         let (a0, period) = expand(number);
 
@@ -78,15 +83,5 @@ mod tests {
         let actual = SquareRoot::new(2);
         assert_eq!(actual.a0, 1);
         assert_eq!(actual.period, vec![2]);
-    }
-
-    #[test]
-    fn convergents() {
-        let s = SquareRoot::new(2_u32);
-        let mut convergents = ContinuedFraction::new(s.into_iter()).into_iter();
-
-        assert_eq!(convergents.next().unwrap(), Ratio::new(1, 1));
-        assert_eq!(convergents.next().unwrap(), Ratio::new(3, 2));
-        assert_eq!(convergents.next().unwrap(), Ratio::new(7, 5));
     }
 }
