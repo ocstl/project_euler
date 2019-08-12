@@ -1,3 +1,5 @@
+pub mod square_root;
+
 use num::rational::Ratio;
 use num::Integer;
 
@@ -50,12 +52,34 @@ impl<T: Clone + Integer, U: Iterator<Item = T>> Iterator for Convergents<T, U> {
 
     fn next(&mut self) -> Option<Self::Item> {
         // Replace `unwrap` with error handling.
-        let a = self.sequence.next().unwrap();
+        let a = match self.sequence.next() {
+            Some(x) => x,
+            None => return None,
+        };
+
         let numer = a.clone() * self.ratio.numer().clone() + self.last_ratio.numer().clone();
         let denom = a * self.ratio.denom().clone() + self.last_ratio.denom().clone();
 
         std::mem::swap(&mut self.ratio, &mut self.last_ratio);
         self.ratio = Ratio::new(numer, denom);
         Some(self.ratio.clone())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn square_root_23() {
+        let sequence = std::iter::once(4).chain([1, 3, 1, 8].into_iter().cloned().cycle());
+        let fraction = ContinuedFraction::new(sequence);
+        let mut convergents = fraction.into_iter();
+
+        assert_eq!(convergents.next().unwrap(), Ratio::new(4, 1));
+        assert_eq!(convergents.next().unwrap(), Ratio::new(5, 1));
+        assert_eq!(convergents.next().unwrap(), Ratio::new(19, 4));
+        assert_eq!(convergents.next().unwrap(), Ratio::new(24, 5));
+        assert_eq!(convergents.next().unwrap(), Ratio::new(211, 44));
     }
 }
