@@ -65,7 +65,7 @@ mod tests {
 
     #[test]
     fn triangle_numbers() {
-        let mut actual = PolygonalNumberIterator::new(3);
+        let mut actual = PolygonalNumberIterator::new(3_u32);
 
         assert_eq!(actual.next(), Some(1));
         assert_eq!(actual.next(), Some(3));
@@ -74,7 +74,7 @@ mod tests {
 
     #[test]
     fn square_numbers() {
-        let mut actual = PolygonalNumberIterator::new(4);
+        let mut actual = PolygonalNumberIterator::new(4_u32);
 
         assert_eq!(actual.next(), Some(1));
         assert_eq!(actual.next(), Some(4));
@@ -83,7 +83,7 @@ mod tests {
 
     #[test]
     fn pentagonal_numbers() {
-        let mut actual = PolygonalNumberIterator::new(5);
+        let mut actual = PolygonalNumberIterator::new(5_u32);
 
         assert_eq!(actual.next(), Some(1));
         assert_eq!(actual.next(), Some(5));
@@ -92,7 +92,7 @@ mod tests {
 
     #[test]
     fn hexagonal_numbers() {
-        let mut actual = PolygonalNumberIterator::new(6);
+        let mut actual = PolygonalNumberIterator::new(6_u32);
 
         assert_eq!(actual.next(), Some(1));
         assert_eq!(actual.next(), Some(6));
@@ -100,7 +100,7 @@ mod tests {
     }
     #[test]
     fn heptagonal_numbers() {
-        let mut actual = PolygonalNumberIterator::new(7);
+        let mut actual = PolygonalNumberIterator::new(7_u32);
 
         assert_eq!(actual.next(), Some(1));
         assert_eq!(actual.next(), Some(7));
@@ -108,7 +108,7 @@ mod tests {
     }
     #[test]
     fn octagonal_numbers() {
-        let mut actual = PolygonalNumberIterator::new(8);
+        let mut actual = PolygonalNumberIterator::new(8_u32);
 
         assert_eq!(actual.next(), Some(1));
         assert_eq!(actual.next(), Some(8));
