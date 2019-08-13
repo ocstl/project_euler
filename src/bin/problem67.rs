@@ -1,10 +1,9 @@
 use std::fs;
 
-const INPUT_FILE: &str = "inputs/problem18.txt";
+const INPUT_FILE: &str = "inputs/p067_triangle.txt";
 
-/// By starting at the top of the triangle below and moving to adjacent numbers on the row below,
-/// the maximum total from top to bottom is 23.
-/// Find the maximum total from top to bottom of the triangle below <problem18.txt>.
+/// Find the maximum total from top to bottom in a 15K text file containing a triangle with
+/// one-hundred rows.
 fn main() -> Result<(), std::io::Error> {
     let mut input = fs::read_to_string(INPUT_FILE)?
         .lines()
