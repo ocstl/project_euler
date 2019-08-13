@@ -3,8 +3,9 @@ use std::iter::{once, Chain, Cycle, Once};
 use std::ops::{Add, Mul};
 
 // See https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
-fn expand<T: >(number: T) -> (T, Vec<T>)
-where T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>
+fn expand<T>(number: T) -> (T, Vec<T>)
+where
+    T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>,
 {
     let mut m = T::zero();
     let mut d = T::one();
@@ -38,7 +39,8 @@ pub struct SquareRoot<T> {
 }
 
 impl<T> SquareRoot<T>
-where T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>
+where
+    T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>,
 {
     pub fn new(number: T) -> Self {
         let (a0, period) = expand(number);

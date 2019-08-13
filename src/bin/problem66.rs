@@ -1,6 +1,6 @@
 use num::bigint::BigInt;
-use num::traits::{One, Pow};
 use num::rational::Ratio;
+use num::traits::{One, Pow};
 use project_euler::continued_fractions::square_root::SquareRoot;
 use project_euler::continued_fractions::ContinuedFraction;
 
