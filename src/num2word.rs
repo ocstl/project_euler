@@ -35,15 +35,15 @@ pub fn num2word(number: usize) -> String {
         "zero".to_string()
     } else {
         match number {
-            0...9 => ONES[number].to_string(),
-            10...19 => TEENS[number - 10].to_string(),
-            20...99 => format!("{}-{}", TENS[number / 10], ONES[number % 10]),
-            100...999 => format!(
+            0..=9 => ONES[number].to_string(),
+            10..=19 => TEENS[number - 10].to_string(),
+            20..=99 => format!("{}-{}", TENS[number / 10], ONES[number % 10]),
+            100..=999 => format!(
                 "{} hundred and {}",
                 ONES[number / 100],
                 num2word(number % 100)
             ),
-            1000...999_999 => format!(
+            1000..=999_999 => format!(
                 "{} thousand {}",
                 num2word(number / 1000),
                 num2word(number % 1000)
