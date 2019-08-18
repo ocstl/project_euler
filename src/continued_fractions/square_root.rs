@@ -1,30 +1,32 @@
 use num::integer::{Integer, Roots};
 use std::iter::{once, Chain, Cycle, Once};
-use std::ops::{Add, Mul};
+use std::ops::{Add, Div, Mul, Sub};
 
 // See https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
 fn expand<T>(number: T) -> (T, Vec<T>)
 where
-    T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>,
+    T: Clone + Integer + Roots,
+    for<'a> T: Mul<&'a T, Output = T> + Div<&'a T, Output = T>,
+    for<'a> &'a T: Add<&'a T, Output = T> + Sub<T, Output = T> + Mul<&'a T, Output = T>,
 {
     let mut m = T::zero();
     let mut d = T::one();
     let mut a = number.sqrt();
 
     let a0 = a.clone();
-    let filter = a0.clone() + a0.clone();
+    let filter = &a0 + &a0;
     let mut period = Vec::new();
 
     while a != filter {
-        m = a * d.clone() - m.clone();
-        d = (number.clone() - m.clone() * m.clone()) / d.clone();
+        m = a * &d - m;
+        d = (&number - &m * &m) / d;
 
         // In the case of perfect squares, d == 0, so we can return early.
         if d.is_zero() {
             break;
         }
 
-        a = (a0.clone() + m.clone()) / d.clone();
+        a = (&a0 + &m) / &d;
         period.push(a.clone())
     }
 
@@ -40,7 +42,9 @@ pub struct SquareRoot<T> {
 
 impl<T> SquareRoot<T>
 where
-    T: Clone + Integer + Roots + Add<T, Output = T> + Mul<T, Output = T>,
+    T: Clone + Integer + Roots,
+    for<'a> T: Mul<&'a T, Output = T> + Div<&'a T, Output = T>,
+    for<'a> &'a T: Add<&'a T, Output = T> + Sub<T, Output = T> + Mul<&'a T, Output = T>,
 {
     pub fn new(number: T) -> Self {
         let (a0, period) = expand(number);
@@ -65,8 +69,6 @@ impl<T: Clone + Integer> IntoIterator for SquareRoot<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::continued_fractions::ContinuedFraction;
-    use num::rational::Ratio;
 
     #[test]
     fn period_lengths() {
