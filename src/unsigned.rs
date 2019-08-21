@@ -1,4 +1,4 @@
-pub trait UnsignedInteger: Clone + Copy + PartialEq + Eq + Sized {
+pub trait UnsignedInteger: Clone + Copy + PartialEq + Eq + Ord + Sized {
     fn to_radix_le(&self, base: Self) -> Vec<Self>;
 
     fn to_radix_be(&self, base: Self) -> Vec<Self> {
@@ -24,6 +24,16 @@ pub trait UnsignedInteger: Clone + Copy + PartialEq + Eq + Sized {
 
     fn reverse_digits(&self, base: Self) -> Self {
         Self::from_radix_be(self.to_radix_le(base).into_iter(), base)
+    }
+
+    fn is_permutation(&self, other: Self, base: Self) -> bool {
+        let mut a = self.to_radix_le(base);
+        a.sort();
+
+        let mut b = other.to_radix_le(base);
+        b.sort();
+
+        a == b
     }
 }
 
