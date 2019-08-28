@@ -12,7 +12,7 @@ fn main() {
         Some((ratio.0 + THREE_SEVENTHS.0, ratio.1 + THREE_SEVENTHS.1))
     });
 
-    let answer = ratios.take_while(|ratio| ratio.1 < MAX_D).last().unwrap();
+    let answer = ratios.take_while(|ratio| ratio.1 <= MAX_D).last().unwrap();
 
     println!("The answer is: {}", answer.0);
 }
