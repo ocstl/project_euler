@@ -85,7 +85,7 @@ mod tests {
 
     #[test]
     fn square_root_23() {
-        let sequence = std::iter::once(4).chain([1, 3, 1, 8].into_iter().cloned().cycle());
+        let sequence = std::iter::once(4).chain([1, 3, 1, 8].iter().cloned().cycle());
         let fraction = ContinuedFraction::new(sequence);
         let mut convergents = fraction.into_iter();
 
