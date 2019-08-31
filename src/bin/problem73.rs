@@ -10,7 +10,7 @@ fn main() {
     // Start with the denominator of the mediant of the two fractions, then count the proper
     // fractions.
     let answer = (SMALLEST + LARGEST..=MAX_D)
-        .flat_map(|d| ((d / SMALLEST)..(d / LARGEST)).filter(move |n| n.gcd(&d) == 1))
+        .flat_map(|d| ((1 + d / SMALLEST)..=(d / LARGEST)).filter(move |n| n.gcd(&d) == 1))
         .count();
 
     println!("The answer is: {}", answer);
