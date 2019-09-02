@@ -6,5 +6,6 @@ pub mod fibonacci;
 pub mod matrix;
 pub mod num2word;
 pub mod polygonal_numbers;
+pub mod pythagorean_triple;
 pub mod totient;
 pub mod unsigned;
