@@ -14,7 +14,6 @@ fn main() {
     let answer = nbr_partitions(INPUT, &possible_values);
 
     println!("The answer is: {}", answer);
-
 }
 
 // This is very slow. Should explore using Euler's generating function.
