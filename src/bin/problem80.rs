@@ -27,12 +27,15 @@ fn sum_square_root_digits(n: u64) -> u64 {
 /// hundred decimal digits for all the irrational square roots.
 fn main() {
     // Need to filter out the perfect squares.
-    let answer: u64 = (1..=INPUT).filter_map(|n|
-        if n.sqrt().pow(2) == n {
-            None
-        } else {
-            Some(sum_square_root_digits(n))
-        }).sum();
+    let answer: u64 = (1..=INPUT)
+        .filter_map(|n| {
+            if n.sqrt().pow(2) == n {
+                None
+            } else {
+                Some(sum_square_root_digits(n))
+            }
+        })
+        .sum();
 
     println!("The answer is: {}", answer);
 }
