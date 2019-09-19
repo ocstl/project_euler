@@ -3,7 +3,7 @@ use std::collections::{BinaryHeap, HashMap};
 use std::fs;
 
 const BASE: u32 = 10;
-const FILENAME: &str = "inputs/p081_matrix.txt";
+const FILENAME: &str = "inputs/p083_matrix.txt";
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 struct Coordinates(usize, usize);
@@ -21,8 +21,20 @@ impl Coordinates {
         Some(Coordinates::new(self.0, self.1.checked_add(1)?))
     }
 
+    fn left(self) -> Option<Self> {
+        Some(Coordinates::new(self.0.checked_sub(1)?, self.1))
+    }
+
+    fn up(self) -> Option<Self> {
+        Some(Coordinates::new(self.0, self.1.checked_sub(1)?))
+    }
+
     fn neighbours(self) -> impl Iterator<Item = Self> {
-        self.right().into_iter().chain(self.down().into_iter())
+        self.right()
+            .into_iter()
+            .chain(self.down().into_iter())
+            .chain(self.left().into_iter())
+            .chain(self.up().into_iter())
     }
 }
 
@@ -30,7 +42,7 @@ type Matrix = HashMap<Coordinates, u64>;
 type CumulativePath = (Reverse<u64>, Coordinates);
 
 /// Find the minimal path sum, in matrix.txt, a text file containing a 80 by 80 matrix, from the
-/// top left to the bottom right by only moving right and down.
+/// top left to the bottom right by moving right, left, down and up.
 fn main() {
     let input = fs::read_to_string(FILENAME).expect("Missing file.");
 

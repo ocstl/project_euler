@@ -14,15 +14,15 @@ impl Coordinates {
     }
 
     fn right(self) -> Option<Self> {
-        Some(Coordinates(self.0.checked_add(1)?, self.1))
+        Some(Coordinates::new(self.0.checked_add(1)?, self.1))
     }
 
     fn down(self) -> Option<Self> {
-        Some(Coordinates(self.0, self.1.checked_add(1)?))
+        Some(Coordinates::new(self.0, self.1.checked_add(1)?))
     }
 
     fn up(self) -> Option<Self> {
-        Some(Coordinates(self.0, self.1.checked_sub(1)?))
+        Some(Coordinates::new(self.0, self.1.checked_sub(1)?))
     }
 
     fn neighbours(self) -> impl Iterator<Item = Self> {
