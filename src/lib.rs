@@ -4,6 +4,7 @@ pub mod collatz;
 pub mod continued_fractions;
 pub mod fibonacci;
 pub mod matrix;
+pub mod monopoly;
 pub mod num2word;
 pub mod polygonal_numbers;
 pub mod pythagorean_triple;
