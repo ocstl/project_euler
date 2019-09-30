@@ -37,8 +37,8 @@ fn main() {
 /// The shortest distance is given by the square root of (a^2 + (b + c)^2),
 /// where b and c are the shortest dimensions. This will yield an integer only if it is a perfect
 /// square.
-fn shortest_distance_is_integer(a: u64, b: u64, c: u64) -> bool {
-    let x = a * a + (b + c) * (b + c);
+fn shortest_distance_is_integer(longest: u64, middle: u64, shortest: u64) -> bool {
+    let x = longest * longest + (middle + shortest) * (middle + shortest);
     let s = x.sqrt();
     x == s * s
 }

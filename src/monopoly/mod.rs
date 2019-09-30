@@ -89,7 +89,7 @@ impl Chance {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Default)]
 pub struct Player {
     double_rolls: usize,
     location: usize,
@@ -130,7 +130,7 @@ impl Player {
         if self.double_rolls == DOUBLE_ROLLS_JAIL {
             self.go_to_jail();
             self.double_rolls = 0;
-            return ();
+            return;
         }
 
         self.location = (self.location + a + b) % BOARD.len();
@@ -138,7 +138,7 @@ impl Player {
 
         if square == Square::GoToJail {
             self.go_to_jail();
-            return ();
+            return;
         }
 
         // Since Chance can move us back unto a CommunityChest, we deal with it first. Sorry
