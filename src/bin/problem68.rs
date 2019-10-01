@@ -93,6 +93,6 @@ fn main() {
         }
     }
 
-    let answer = rings.into_iter().max().unwrap_or(String::from("No ring."));
+    let answer = rings.into_iter().max().unwrap_or_else(|| String::from("No ring."));
     println!("The answer is {}", answer);
 }
