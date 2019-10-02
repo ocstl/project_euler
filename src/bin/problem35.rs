@@ -1,12 +1,12 @@
 use primal::Sieve;
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 
 const INPUT: usize = 1_000_000;
 
 // Generate all rotations of the number (abc -> cab -> bca), in decimal format.
 fn rotations(x: usize) -> Vec<usize> {
     // Can't properly use conversion to f64 for a usize.
-    let length = x.nbr_digits(10) as u32;
+    let length = x.nbr_decimal_digits() as u32;
 
     (0..length)
         .scan(x, |acc, _| {

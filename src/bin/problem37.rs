@@ -1,5 +1,5 @@
 use primal::Sieve;
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 
 /// Find the sum of the only eleven primes that are both truncatable from left to right and right
 /// to left.
@@ -18,7 +18,7 @@ fn main() {
             }
         }
 
-        let mut length = x.nbr_digits(10) as u32;
+        let mut length = x.nbr_decimal_digits() as u32;
         while length > 0 {
             if primes.is_prime(x % 10_usize.pow(length)) {
                 length -= 1
