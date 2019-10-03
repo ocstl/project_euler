@@ -8,12 +8,12 @@ impl Coordinates {
         Coordinates(x, y)
     }
 
-    fn distance(self, other: Self) -> f64 {
-        (((self.0 - other.0).pow(2) + (self.1 - other.1).pow(2)) as f64).sqrt()
+    fn squared_distance(self, other: Self) -> i64 {
+        (self.0 - other.0).pow(2) + (self.1 - other.1).pow(2)
     }
 
-    fn distance_to_origin(self) -> f64 {
-        (self.0 as f64).hypot(self.1 as f64)
+    fn squared_distance_to_origin(self) -> i64 {
+        self.0.pow(2) + self.1.pow(2)
     }
 }
 
@@ -29,15 +29,11 @@ impl OriginTriangle {
     }
 
     fn is_right_triangle(&self) -> bool {
-        let mut sides = [
-            self.p.distance_to_origin(),
-            self.q.distance_to_origin(),
-            self.p.distance(self.q),
-        ];
-        sides.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        let side_p = self.p.squared_distance_to_origin();
+        let side_q = self.q.squared_distance_to_origin();
+        let side_pq = self.p.squared_distance(self.q);
 
-        // Turns out the issue was floating point inaccuracy.
-        (sides[0].powi(2) + sides[1].powi(2) - sides[2].powi(2)).abs() < 1e-8
+        (side_p + side_q == side_pq) || (side_p + side_pq == side_q) || (side_q + side_pq == side_p)
     }
 }
 
