@@ -46,16 +46,18 @@ impl OriginTriangle {
 ///
 /// Given that 0 ≤ x1, y1, x2, y2 ≤ 50, how many right triangles can be formed?
 fn main() {
-    let mut points: Vec<Coordinates> = (0..=INPUT).flat_map(|x| {
-        (0..=INPUT).filter_map(move |y| {
-            // The origin is not a valid point.
-            if x != 0 || y != 0 {
-                Some(Coordinates::new(x, y))
-            } else {
-                None
-            }
+    let mut points: Vec<Coordinates> = (0..=INPUT)
+        .flat_map(|x| {
+            (0..=INPUT).filter_map(move |y| {
+                // The origin is not a valid point.
+                if x != 0 || y != 0 {
+                    Some(Coordinates::new(x, y))
+                } else {
+                    None
+                }
+            })
         })
-    }).collect();
+        .collect();
 
     let mut triangles = Vec::new();
     while let Some(p) = points.pop() {
@@ -64,6 +66,9 @@ fn main() {
         }
     }
 
-    let answer= triangles.into_iter().filter(OriginTriangle::is_right_triangle).count();
+    let answer = triangles
+        .into_iter()
+        .filter(OriginTriangle::is_right_triangle)
+        .count();
     println!("The answer is: {}", answer);
 }

@@ -1,12 +1,12 @@
 use primal::{is_prime, Primes};
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 
 const LENGTH: usize = 5;
 const UPPER_BOUND: usize = 1_000_000;
 
 // Concatenate two numbers.
 fn concatenate(a: usize, b: usize) -> usize {
-    a * 10_usize.pow(b.nbr_digits(10) as u32) + b
+    a * 10_usize.pow(b.nbr_decimal_digits() as u32) + b
 }
 
 fn is_pair_prime(a: usize, b: usize) -> bool {
@@ -46,6 +46,13 @@ impl PrimePairSet {
     }
 }
 
+/// The primes 3, 7, 109, and 673, are quite remarkable. By taking any two primes and
+/// concatenating them in any order the result will always be prime. For example, taking 7 and
+/// 109, both 7109 and 1097 are prime. The sum of these four primes, 792, represents the lowest
+/// sum for a set of four primes with this property.
+///
+/// Find the lowest sum for a set of five primes for which any two primes concatenate to produce
+/// another prime.
 fn main() {
     let mut prime_pair_sets = Vec::new();
     let mut min_sum = UPPER_BOUND;

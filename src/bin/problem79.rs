@@ -1,17 +1,15 @@
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 use std::collections::HashSet;
 use std::fs;
 
-const BASE: u32 = 10;
 const FILENAME: &str = "inputs/p079_keylog.txt";
 
 #[derive(Clone, PartialEq, Eq, Hash)]
 struct KeyLog([u32; 3]);
 
 impl KeyLog {
-    fn check(&self, password: &[u32]) -> bool {
-        let mut it = password.iter();
-        self.0.iter().all(|&key| it.any(|&x| x == key))
+    fn check(&self, mut password: impl Iterator<Item = u32>) -> bool {
+        self.0.iter().all(|&key| password.any(|x| x == key))
     }
 }
 
@@ -41,8 +39,10 @@ fn main() {
     // The problem is small enough to lends itself to brute force.
     let answer = (100..)
         .find(|password| {
-            let password = password.to_radix_be(BASE);
-            keylogs.iter().all(|keylog| keylog.check(&password))
+            let password = password.into_decimal_digits();
+            keylogs
+                .iter()
+                .all(|keylog| keylog.check(password.clone()))
         })
         .unwrap();
 

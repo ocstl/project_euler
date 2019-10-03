@@ -1,15 +1,13 @@
-use project_euler::unsigned::UnsignedInteger;
+use itertools::Itertools;
+use radixal::IntoDigits;
 
-const BASE: usize = 10;
 const MULTIPLES: [usize; 5] = [2, 3, 4, 5, 6];
 
 fn multiple_permutation(n: usize, multiples: &[usize]) -> bool {
-    let mut digits = n.to_radix_le(BASE);
-    digits.sort();
+    let digits: Vec<usize> = n.into_decimal_digits().sorted().collect();
 
     multiples.iter().all(|&multiple| {
-        let mut m = (n * multiple).to_radix_le(BASE);
-        m.sort();
+        let m: Vec<usize> = (n * multiple).into_decimal_digits().sorted().collect();
         m == digits
     })
 }

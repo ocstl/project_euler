@@ -10,4 +10,3 @@ pub mod polygonal_numbers;
 pub mod pythagorean_triple;
 pub mod roman;
 pub mod totient;
-pub mod unsigned;

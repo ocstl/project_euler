@@ -1,5 +1,4 @@
 use permutohedron::Heap;
-use project_euler::unsigned::UnsignedInteger;
 
 const BASE: usize = 10;
 const INPUT: [usize; 10] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -22,7 +21,7 @@ const PRIMES: [usize; 7] = [2, 3, 5, 7, 11, 13, 17];
 fn main() {
     let mut digits = INPUT;
     let heap = Heap::new(&mut digits);
-    let to_number = |x: &[usize]| usize::from_radix_be(x.iter().cloned(), BASE);
+    let to_number = |digits: &[usize]| digits.iter().fold(0, |acc, &x| acc * BASE + x);
 
     // Check divisibility over all 3-digit windows, starting at the second digit.
     let filter_fn = |d: &[usize]| -> bool {
@@ -31,7 +30,7 @@ fn main() {
             .skip(1)
             .map(to_number)
             .zip(PRIMES.iter())
-            .all(|(number, divisor)| number % divisor == 0)
+            .all(|(number, &divisor)| number % divisor == 0)
     };
 
     let answer: usize = heap

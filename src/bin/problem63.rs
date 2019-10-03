@@ -1,6 +1,4 @@
-use project_euler::unsigned::UnsignedInteger;
-
-const BASE: u128 = 10;
+use radixal::IntoDigits;
 
 /// How many n-digit positive integers exist which are also an nth power?
 fn main() {
@@ -11,7 +9,7 @@ fn main() {
     // Once we fall behind (n-1 digit number at nth power), we can never get back.
     let nbr_powers = |base: u128| -> u32 {
         (1..)
-            .take_while(|&power| base.pow(power).nbr_digits(BASE) == power as usize)
+            .take_while(|&power| base.pow(power).nbr_decimal_digits() == power as usize)
             .last()
             .unwrap()
     };

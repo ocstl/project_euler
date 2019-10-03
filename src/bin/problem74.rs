@@ -1,7 +1,6 @@
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 use std::collections::{HashMap, HashSet};
 
-const BASE_10: u64 = 10;
 const INPUT: u64 = 1_000_000;
 const EXACT_LENGTH: usize = 60;
 
@@ -10,7 +9,7 @@ fn factorial(n: u64) -> u64 {
 }
 
 fn sum_factorial(n: u64) -> u64 {
-    n.to_radix_le(BASE_10).into_iter().map(factorial).sum()
+    n.into_decimal_digits().map(factorial).sum()
 }
 
 /// The number 145 is well known for the property that the sum of the factorial of its digits is

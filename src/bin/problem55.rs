@@ -1,16 +1,16 @@
-use core::iter::successors;
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 
-const BASE: u128 = 10;
 const INPUT: u128 = 10000;
 const MAX_ITERATIONS: usize = 50;
 
 fn is_lychrel_number(n: u128) -> bool {
-    successors(Some(n + n.reverse_digits(BASE)), |n| {
-        Some(n + n.reverse_digits(BASE))
+    core::iter::successors(Some(n), |&n| {
+        Some(n + n.into_decimal_digits().into_reversed_number())
     })
+    // Skip the initial number.
+    .skip(1)
     .take(MAX_ITERATIONS)
-    .any(|n| n.is_palindrome(BASE))
+    .any(IntoDigits::is_decimal_palindrome)
 }
 
 /// If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.

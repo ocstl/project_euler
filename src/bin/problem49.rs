@@ -1,8 +1,9 @@
 use itertools::Itertools;
 use primal::Primes;
-use project_euler::unsigned::UnsignedInteger;
+use radixal::IntoDigits;
 use std::collections::HashMap;
 
+const BASE: usize = 10;
 const INPUT: u32 = 4;
 const SEQUENCE_LENGTH: usize = 3;
 
@@ -12,9 +13,9 @@ fn get_prime_permutations(nbr_digits: u32) -> HashMap<usize, Vec<usize>> {
     // Transform the primes to the smallest usize formed with their digits, which will allow us
     // to group permutations together.
     let key_fn = |n: usize| -> usize {
-        let mut v = n.to_radix_le(10);
-        v.sort();
-        UnsignedInteger::from_radix_be(v.into_iter(), 10)
+        n.into_decimal_digits()
+            .sorted()
+            .fold(0, |acc, digit| acc * BASE + digit)
     };
 
     // Only use the primes with the correct number of digits.
