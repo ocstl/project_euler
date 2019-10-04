@@ -5,7 +5,7 @@ const MAX_ITERATIONS: usize = 50;
 
 fn is_lychrel_number(n: u128) -> bool {
     core::iter::successors(Some(n), |&n| {
-        Some(n + n.into_decimal_digits().into_reversed_number())
+        Some(n + n.reverse_decimal_digits())
     })
     // Skip the initial number.
     .skip(1)
