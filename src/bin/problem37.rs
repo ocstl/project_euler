@@ -1,33 +1,26 @@
 use primal::Sieve;
 use radixal::IntoDigits;
+use std::iter::from_fn;
 
 /// Find the sum of the only eleven primes that are both truncatable from left to right and right
 /// to left.
 /// NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 fn main() {
-    // The largest such prime is 739397, so 750_000 is fine.
+    // The largest such prime is 748317, so 750_000 is fine.
     let primes = Sieve::new(750_000);
 
     let truncatable = |x: usize| -> bool {
-        let mut y = x;
-        while y > 0 {
-            if primes.is_prime(y) {
-                y /= 10
-            } else {
-                return false;
-            }
-        }
+        let mut digits = x.into_decimal_digits();
+        let mut digits_left = digits.clone();
 
-        let mut length = x.nbr_decimal_digits() as u32;
-        while length > 0 {
-            if primes.is_prime(x % 10_usize.pow(length)) {
-                length -= 1
-            } else {
-                return false;
-            }
-        }
+        let from_left =
+            from_fn(move || Some(digits_left.to_number()).filter(|_| digits_left.next().is_some()))
+                .skip(1);
+        let from_right =
+            from_fn(move || Some(digits.to_number()).filter(|_| digits.next_back().is_some()))
+                .skip(1);
 
-        true
+        from_left.chain(from_right).all(|n| primes.is_prime(n))
     };
 
     // As 2, 3, 5 and 7 are not truncatable, they are not included in the truncatable primes.
