@@ -40,9 +40,7 @@ fn main() {
     let answer = (100..)
         .find(|password| {
             let password = password.into_decimal_digits();
-            keylogs
-                .iter()
-                .all(|keylog| keylog.check(password.clone()))
+            keylogs.iter().all(|keylog| keylog.check(password.clone()))
         })
         .unwrap();
 
