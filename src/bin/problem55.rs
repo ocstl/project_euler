@@ -4,13 +4,11 @@ const INPUT: u128 = 10000;
 const MAX_ITERATIONS: usize = 50;
 
 fn is_lychrel_number(n: u128) -> bool {
-    core::iter::successors(Some(n), |&n| {
-        Some(n + n.reverse_decimal_digits())
-    })
-    // Skip the initial number.
-    .skip(1)
-    .take(MAX_ITERATIONS)
-    .any(IntoDigits::is_decimal_palindrome)
+    core::iter::successors(Some(n), |&n| Some(n + n.reverse_decimal_digits()))
+        // Skip the initial number.
+        .skip(1)
+        .take(MAX_ITERATIONS)
+        .any(IntoDigits::is_decimal_palindrome)
 }
 
 /// If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.

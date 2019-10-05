@@ -46,12 +46,3 @@ fn main() {
 
     println!("The answer is: {}", answer)
 }
-
-#[test]
-fn test_key_log() {
-    let keylog = KeyLog([1, 2, 3]);
-    assert!(keylog.check(&[1, 2, 3]));
-    assert!(!keylog.check(&[2, 1, 3]));
-    assert!(keylog.check(&[1, 2, 4, 3]));
-    assert!(!keylog.check(&[2, 1, 4, 3]));
-}
