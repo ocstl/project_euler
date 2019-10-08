@@ -1,3 +1,4 @@
+pub mod aliquot_sum;
 pub mod cards;
 pub mod ciphers;
 pub mod collatz;
