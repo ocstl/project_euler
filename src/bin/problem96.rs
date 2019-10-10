@@ -55,10 +55,16 @@ impl SudokuPuzzle {
 fn main() {
     let puzzles = parse_input(FILENAME);
 
-    let answer: u32 = puzzles.into_iter().map(|puzzle| {
-        let solved = recursive_solve(puzzle).unwrap();
-        solved.line(0).take(3).fold(0, |acc, &digit| acc * BASE + digit)
-    }).sum();
+    let answer: u32 = puzzles
+        .into_iter()
+        .map(|puzzle| {
+            let solved = recursive_solve(puzzle).unwrap();
+            solved
+                .line(0)
+                .take(3)
+                .fold(0, |acc, &digit| acc * BASE + digit)
+        })
+        .sum();
 
     println!("The answer is: {}", answer);
 }
