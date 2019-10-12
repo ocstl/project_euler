@@ -133,7 +133,6 @@ fn main() {
             pairs
                 .iter()
                 .flat_map(|(word1, word2)| {
-
                     // Function to eliminate mapping where the first characters of any of the two
                     // strings is 0.
                     let char1 = word1.chars().next().unwrap();
