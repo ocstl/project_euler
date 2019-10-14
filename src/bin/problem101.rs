@@ -21,9 +21,7 @@ use peroxide::structure::vector::Vector;
 ///
 /// Find the sum of FITs for the BOPs.
 fn main() {
-    let x_vector: Vector = vec![
-        1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0,
-    ];
+    let x_vector: Vector = vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0];
     let y_vector: Vector = x_vector.iter().map(|x| input_function(*x)).collect();
     let mut sum_fits = 0.0;
 
@@ -45,7 +43,8 @@ fn main() {
                 } else {
                     None
                 }
-            }).unwrap_or(0.0);
+            })
+            .unwrap_or(0.0);
         sum_fits += error;
     }
 
