@@ -43,7 +43,7 @@ fn main() {
 fn rule1(set: &[u64]) -> bool {
     let mut sums: HashSet<u64> = HashSet::new();
 
-    /// `HashSet::insert` returns `false` if the element was already present.
+    // `HashSet::insert` returns `false` if the element was already present.
     (1..set.len())
         .flat_map(|l| set.iter().combinations(l))
         .all(|window| sums.insert(window.into_iter().sum()))
