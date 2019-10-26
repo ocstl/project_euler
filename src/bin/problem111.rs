@@ -38,7 +38,6 @@ fn main() {
                     .collect();
 
                 if !numbers.is_empty() {
-                    dbg!(digit, numbers.iter().sum::<usize>());
                     Some(numbers.into_iter().sum())
                 } else {
                     None
