@@ -67,7 +67,7 @@ fn main() {
     let first_digits_pan_digital = |n: usize| -> bool {
         let f = log10_fibonacci(n);
         let first_digits = 10.0_f64.powf(f.fract() + 8.0).floor() as u32;
-        first_digits.is_decimal_permutation(DIGITS).unwrap()
+        first_digits.is_decimal_permutation(DIGITS)
     };
 
     let fibonacci = ModFibonacci::new(FILTER);
@@ -75,7 +75,7 @@ fn main() {
     let answer = fibonacci
         .enumerate()
         .find_map(|(idx, n)| {
-            if n.is_decimal_permutation(DIGITS).unwrap() && first_digits_pan_digital(idx + 1) {
+            if n.is_decimal_permutation(DIGITS) && first_digits_pan_digital(idx + 1) {
                 Some(idx + 1)
             } else {
                 None

@@ -10,7 +10,7 @@ fn main() {
 
     let answer = (2..INPUT)
         .filter_map(|n| match f(n) {
-            Ok(t) if n.is_decimal_permutation(t).unwrap() => Some((n as f64 / t as f64, n)),
+            Ok(t) if n.is_decimal_permutation(t) => Some((n as f64 / t as f64, n)),
             _ => None,
         })
         .min_by(|x, y| x.partial_cmp(y).unwrap())
