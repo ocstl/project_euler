@@ -82,22 +82,27 @@ fn main() {
     let check_north_corner = |r| is_prime(6 * r + 1) && is_prime(6 * r - 1) && is_prime(12 * r + 5);
     let check_se_neighbour = |r| is_prime(6 * r - 1) && is_prime(12 * r - 7) && is_prime(6 * r + 5);
 
-    // Start at ring 1 to avoid underflow, offsetting by 1 for the center tile.
-    let answer = (1_u64..)
-        .flat_map(|r| match (check_north_corner(r), check_se_neighbour(r)) {
-            (true, true) => Some(2 + 3 * r * (r - 1))
-                .into_iter()
-                .chain(Some(1 + 3 * r * (r + 1)).into_iter()),
-            (true, false) => Some(2 + 3 * r * (r - 1))
-                .into_iter()
-                .chain(None.into_iter()),
-            (false, true) => Some(1 + 3 * r * (r + 1))
-                .into_iter()
-                .chain(None.into_iter()),
-            (false, false) => None.into_iter().chain(None.into_iter()),
-        })
+    // Start at ring 2 to avoid underflow and the problematic 7. Offset by 1 for
+    // `nth`'s 0-indexing.
+    let answer = [1_u64, 2]
+        .into_iter()
+        .cloned()
+        .chain((2_u64..).flat_map(|r| {
+            match (check_north_corner(r), check_se_neighbour(r)) {
+                (true, true) => Some(2 + 3 * r * (r - 1))
+                    .into_iter()
+                    .chain(Some(1 + 3 * r * (r + 1)).into_iter()),
+                (true, false) => Some(2 + 3 * r * (r - 1))
+                    .into_iter()
+                    .chain(None.into_iter()),
+                (false, true) => Some(1 + 3 * r * (r + 1))
+                    .into_iter()
+                    .chain(None.into_iter()),
+                (false, false) => None.into_iter().chain(None.into_iter()),
+            }
+        }))
         .nth(INPUT - 1)
         .unwrap();
 
-    println!("The answer is: {}", answer);
+    println!("The answer is: {:?}", answer);
 }
