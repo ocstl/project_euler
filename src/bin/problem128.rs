@@ -85,7 +85,7 @@ fn main() {
     // Start at ring 2 to avoid underflow and the problematic 7. Offset by 1 for
     // `nth`'s 0-indexing.
     let answer = [1_u64, 2]
-        .into_iter()
+        .iter()
         .cloned()
         .chain((2_u64..).flat_map(|r| {
             match (check_north_corner(r), check_se_neighbour(r)) {
