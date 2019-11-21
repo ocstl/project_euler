@@ -2,7 +2,7 @@
 macro_rules! aliquot_sum_fn {
     ($limit:expr) => {
         lazy_static::lazy_static! {
-            static ref SIEVE: primal::Sieve = primal::Sieve::new(INPUT);
+            static ref SIEVE: primal::Sieve = primal::Sieve::new($limit);
         }
 
         fn aliquot_sum(number: usize) -> usize {
