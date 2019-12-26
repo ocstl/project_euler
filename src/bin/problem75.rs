@@ -18,7 +18,7 @@ fn main() {
     let mut primitives = vec![PrimitivePythagoreanTriple::default()];
 
     while let Some(primitive) = primitives.pop() {
-        let length = primitive.to_pythagorean_triple().sum();
+        let length = primitive.to_pythagorean_triple().perimeter();
 
         // Skip primitives that are too large to begin with, as their multiples won't count, and
         // the generated primitives will be even larger.

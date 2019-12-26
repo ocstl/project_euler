@@ -5,8 +5,12 @@ use std::iter::{once, successors};
 pub struct PythagoreanTriple(u64, u64, u64);
 
 impl PythagoreanTriple {
+    pub fn sides(self) -> [u64; 3] {
+        [self.0, self.1, self.2]
+    }
+
     /// Sum of the three integers.
-    pub fn sum(self) -> u64 {
+    pub fn perimeter(self) -> u64 {
         self.0 + self.1 + self.2
     }
 
